@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AddUsers = () => {
+    const [user, setUser] = useState({});
+    const handleAddUser = event => {
+        event.preventDefault();
+        console.log(user);
+    }
+
+    const handleInputBlur = event => {
+        const filed = event.target.name;
+        const value = event.target.value;
+        const newUser = { ...user }
+        newUser[filed] = value;
+        setUser(newUser);
+    }
+
     return (
         <div style={{ textAlign: 'center' }}>
-            <h1>Add a new users : </h1>
+            <h1> Please Add a new users</h1>
 
-            <form>
-                <input type="text" name="name" id="" placeholder='Enter Your Name' />
+            <form onSubmit={handleAddUser}>
+                <input onBlur={handleInputBlur} style={{ margin: '10px' }} type="text" name="name" id="" placeholder='Enter Your Name' />
                 <br />
-                <input type="email" name="email" id="" placeholder='Enter Your Email' />
+                <input onBlur={handleInputBlur} type="email" name="email" id="" placeholder='Enter Your Email' />
                 <br />
                 <br />
-                <button>Add User</button>
+                <button type='submit'>Add User</button>
 
             </form>
 
