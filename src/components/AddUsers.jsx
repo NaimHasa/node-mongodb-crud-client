@@ -4,7 +4,25 @@ const AddUsers = () => {
     const [user, setUser] = useState({});
     const handleAddUser = event => {
         event.preventDefault();
-        console.log(user);
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                if (data.acknowledged) {
+                    alert('user successfully added')
+                    event.target.reset();
+                }
+            })
+
+
+
+
     }
 
     const handleInputBlur = event => {
@@ -20,9 +38,11 @@ const AddUsers = () => {
             <h1> Please Add a new users</h1>
 
             <form onSubmit={handleAddUser}>
-                <input onBlur={handleInputBlur} style={{ margin: '10px' }} type="text" name="name" id="" placeholder='Enter Your Name' />
+                <input onBlur={handleInputBlur} style={{ margin: '7px' }} type="text" name="name" id="" placeholder='Enter Your Name' required />
                 <br />
-                <input onBlur={handleInputBlur} type="email" name="email" id="" placeholder='Enter Your Email' />
+                <input onBlur={handleInputBlur} style={{ margin: '7px' }} type="text" name="address" id="" placeholder='Enter Your Address' required />
+                <br />
+                <input onBlur={handleInputBlur} style={{ margin: '7px' }} type="email" name="email" id="" placeholder='Enter Your Email' required />
                 <br />
                 <br />
                 <button type='submit'>Add User</button>
