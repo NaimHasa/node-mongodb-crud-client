@@ -38,6 +38,7 @@ const Home = () => {
                 displayUsers.map(user =>
                     <p key={user._id}>
                         {user.name}
+
                         {user.email}
 
                         <Link to={`/update/${user._id}`}><button>Update</button> </Link>

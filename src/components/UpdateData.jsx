@@ -6,7 +6,20 @@ const UpdateData = () => {
     const [user, setUser] = useState(storedUser);
     const handleUpdateUser = event => {
         event.preventDefault();
-        console.log(user)
+        fetch(`http://localhost:5000/users/${storedUser._id}`, {
+
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+
+            })
     }
 
     const handleInputChange = event => {
@@ -30,7 +43,7 @@ const UpdateData = () => {
                     <input onChange={handleInputChange} defaultValue={storedUser.email} style={{ margin: '7px' }} type="email" name="email" id="" placeholder='Enter Your Email' required />
                     <br />
                     <br />
-                    <button type='submit'>Add User</button>
+                    <button type='submit'>Update User</button>
 
                 </form>
 
